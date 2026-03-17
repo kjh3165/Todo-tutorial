@@ -10,6 +10,10 @@ function App() {
     form.todo.value = "";
   };
 
+  const handleOnClick = (index) => {
+    setTodos(todos.filter((todo, i) => i != index));
+  };
+
   return (
     <>
       <form onSubmit={handleSubmit}>
@@ -18,7 +22,10 @@ function App() {
       </form>
       <ul>
         {todos.map((todo, index) => (
-          <li key={index}>{todo}</li>
+          <li key={index}>
+            {todo}
+            <button onClick={() => handleOnClick(index)}>X</button>
+          </li>
         ))}
       </ul>
     </>
