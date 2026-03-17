@@ -1,19 +1,21 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 function App() {
   const [todos, setTodos] = useState([
-    { id: 1, text: "할일1", checked: false },
-    { id: 2, text: "할일2", checked: true },
-    { id: 3, text: "할일3", checked: false },
+    { id: 1, text: "할일1", checked: true },
+    { id: 2, text: "할일2", checked: false },
+    { id: 3, text: "할일3", checked: true },
   ]);
 
-  const [lastId, setLastId] = useState(4);
+  const lastId = useRef(4);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const form = e.target;
-    setTodos([...todos, { id: lastId, text: form.todo.value, checked: false }]);
-    setLastId(lastId + 1);
+    setTodos([
+      ...todos,
+      { id: lastId.current++, text: form.todo.value, checked: false },
+    ]);
     form.todo.value = "";
   };
 
