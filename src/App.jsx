@@ -21,6 +21,14 @@ function App() {
     setTodos(todos.filter((todo) => todo.id != id));
   };
 
+  const handleOnChange = (id) => {
+    setTodos(
+      todos.map((todo) =>
+        todo.id != id ? todo : { ...todo, checked: !todo.checked },
+      ),
+    );
+  };
+
   return (
     <>
       <form onSubmit={handleSubmit}>
@@ -30,6 +38,8 @@ function App() {
       <ul>
         {todos.map((todo) => (
           <li key={todo.id}>
+            <input type="checkbox" onChange={() => handleOnChange(todo.id)} />
+            {JSON.stringify(todo.checked)}
             {todo.id} : {todo.text}
             <button onClick={() => handleOnClick(todo.id)}>X</button>
           </li>
