@@ -1,17 +1,24 @@
 import { useState } from "react";
 
 function App() {
-  const [todos, setTodos] = useState(["할일1", "할일2", "할일3"]);
+  const [todos, setTodos] = useState([
+    { id: 1, text: "할일1", checked: false },
+    { id: 2, text: "할일2", checked: false },
+    { id: 3, text: "할일3", checked: false },
+  ]);
+
+  const [lastId, setLastId] = useState(4);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const form = e.target;
-    setTodos([...todos, form.todo.value]);
+    setTodos([...todos, { id: lastId, text: form.todo.value, checked: false }]);
+    setLastId(lastId + 1);
     form.todo.value = "";
   };
 
-  const handleOnClick = (index) => {
-    setTodos(todos.filter((todo, i) => i != index));
+  const handleOnClick = (id) => {
+    setTodos(todos.filter((todo) => todo.id != id));
   };
 
   return (
@@ -21,10 +28,10 @@ function App() {
         <button type="submit">추가</button>
       </form>
       <ul>
-        {todos.map((todo, index) => (
-          <li key={index}>
-            {todo}
-            <button onClick={() => handleOnClick(index)}>X</button>
+        {todos.map((todo) => (
+          <li key={todo.id}>
+            {todo.id} : {todo.text}
+            <button onClick={() => handleOnClick(todo.id)}>X</button>
           </li>
         ))}
       </ul>
