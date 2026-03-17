@@ -3,7 +3,7 @@ import { useState } from "react";
 function App() {
   const [todos, setTodos] = useState([
     { id: 1, text: "할일1", checked: false },
-    { id: 2, text: "할일2", checked: false },
+    { id: 2, text: "할일2", checked: true },
     { id: 3, text: "할일3", checked: false },
   ]);
 
@@ -38,9 +38,12 @@ function App() {
       <ul>
         {todos.map((todo) => (
           <li key={todo.id}>
-            <input type="checkbox" onChange={() => handleOnChange(todo.id)} />
-            {JSON.stringify(todo.checked)}
-            {todo.id} : {todo.text}
+            <input
+              type="checkbox"
+              onChange={() => handleOnChange(todo.id)}
+              checked={todo.checked}
+            />
+            {JSON.stringify(todo.checked)} | {todo.id} : {todo.text}
             <button onClick={() => handleOnClick(todo.id)}>X</button>
           </li>
         ))}
