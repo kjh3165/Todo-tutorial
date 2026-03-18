@@ -1,15 +1,15 @@
-function TodoList({ todos, handleOnClick, handleOnChange }) {
+function TodoList({ todos, removeTodo, toggleTodo }) {
   return (
     <ul>
       {todos.map((todo) => (
         <li key={todo.id}>
           <input
             type="checkbox"
-            onChange={() => handleOnChange(todo.id)}
+            onChange={() => toggleTodo(todo.id)}
             checked={todo.checked}
           />
           {JSON.stringify(todo.checked)} | {todo.id} : {todo.text}
-          <button onClick={() => handleOnClick(todo.id)}>X</button>
+          <button onClick={() => removeTodo(todo.id)}>X</button>
         </li>
       ))}
     </ul>

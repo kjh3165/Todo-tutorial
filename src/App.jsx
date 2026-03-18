@@ -11,25 +11,15 @@ function App() {
 
   const lastId = useRef(4);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const form = e.target;
-    if (form.todo.value == "") {
-      alert("할일을 입력해주세요");
-      return;
-    }
-    setTodos([
-      ...todos,
-      { id: lastId.current++, text: form.todo.value, checked: false },
-    ]);
-    form.todo.value = "";
+  const addTodo = (text) => {
+    setTodos([...todos, { id: lastId.current++, text: text, checked: false }]);
   };
 
-  const handleOnClick = (id) => {
+  const removeTodo = (id) => {
     setTodos(todos.filter((todo) => todo.id != id));
   };
 
-  const handleOnChange = (id) => {
+  const toggleTodo = (id) => {
     setTodos(
       todos.map((todo) =>
         todo.id != id ? todo : { ...todo, checked: !todo.checked },
@@ -39,12 +29,8 @@ function App() {
 
   return (
     <>
-      <TodoWriteForm handleSubmit={handleSubmit} />
-      <TodoList
-        todos={todos}
-        handleOnClick={handleOnClick}
-        handleOnChange={handleOnChange}
-      />
+      <TodoWriteForm addTodo={addTodo} />
+      <TodoList todos={todos} removeTodo={removeTodo} toggleTodo={toggleTodo} />
     </>
   );
 }
