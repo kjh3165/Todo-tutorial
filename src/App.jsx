@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import TodoWriteForm from "./TodoWriteForm";
 
 function App() {
   const [todos, setTodos] = useState([
@@ -12,6 +13,10 @@ function App() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const form = e.target;
+    if (form.todo.value == "") {
+      alert("할일을 입력해주세요");
+      return;
+    }
     setTodos([
       ...todos,
       { id: lastId.current++, text: form.todo.value, checked: false },
@@ -33,10 +38,7 @@ function App() {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <input type="text" id="todo" placeholder="할일을 입력하세요" />
-        <button type="submit">추가</button>
-      </form>
+      <TodoWriteForm handleSubmit={handleSubmit} />
       <ul>
         {todos.map((todo) => (
           <li key={todo.id}>
